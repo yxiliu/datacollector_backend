@@ -1,7 +1,7 @@
 package Services
 
 import (
-	"gin/Models"
+	"collectbackend/Models"
 )
 
 type Test struct {

@@ -1,9 +1,9 @@
 package Router
 
 import (
-	"gin/Controllers"
-	"gin/Middlewares"
-	"gin/Sessions"
+	"collectbackend/Controllers"
+	"collectbackend/Middlewares"
+	"collectbackend/Sessions"
 
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"

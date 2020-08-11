@@ -1,7 +1,7 @@
 package main
 
 import (
-	"gin/Router"
+	"collectbackend/Router"
 )
 
 func main() {

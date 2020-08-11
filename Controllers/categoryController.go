@@ -1,15 +1,16 @@
 package Controllers
 
 import (
-	"collectbackend/Services"
+	"collectbackend/Models"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
 )
 
-func TestInsert(c *gin.Context) {
-	var testService Services.Test
+func GetAllCategory(c *gin.Context) {
 
+	var cat Models.Category
+	cat.FindAll()
 	err := c.ShouldBindJSON(&testService)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
