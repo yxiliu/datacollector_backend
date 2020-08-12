@@ -11,8 +11,8 @@ type IndxInfo struct {
 
 func (this *IndxInfo) GetInfoDetail() Models.Indxs {
 	var indxinfo Models.Indxs
-	indxinfo
-	testModel.Id = this.Id
+	indxinfo.
+		testModel.Id = this.Id
 	testModel.Testcol = this.Testcol
 	id, err = testModel.Insert()
 	return
