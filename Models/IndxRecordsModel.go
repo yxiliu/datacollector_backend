@@ -28,8 +28,9 @@ func (this *IndxRecord) Insert(indx Indxs, maintype uint8, subtye uint8, amount 
 	return
 }
 
-func (this *IndxRecord) FindAll(listofindex []*IndxRecord, indxs Indxs, year uint) {
+func (this *IndxRecord) FindAll(indxs Indxs, year uint) (listofindex []IndxRecord) {
 	Databases.DB.Where("year = ? and Indxs = ?", year, indxs).Find(&listofindex)
+	return listofindex
 }
 
 func (this *IndxRecord) UpdateCurrent(id uint, amount float64) {

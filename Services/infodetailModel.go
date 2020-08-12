@@ -4,13 +4,14 @@ import (
 	"collectbackend/Models"
 )
 
-type Test struct {
+type IndxInfo struct {
 	Id      int    `json:"id"`
 	Testcol string `json:"testcol"`
 }
 
-func (this *Test) Insert() (id int, err error) {
-	var testModel Models.Test
+func (this *IndxInfo) GetInfoDetail() Models.Indxs {
+	var indxinfo Models.Indxs
+	indxinfo
 	testModel.Id = this.Id
 	testModel.Testcol = this.Testcol
 	id, err = testModel.Insert()

@@ -34,16 +34,21 @@ func (this *Indxs) Insert(name string, Maintainer string, idxUnit string, memo s
 	return
 }
 
-func (this *Indxs) FindAll(listofindex []*Indxs, category Category, Name string) {
+func (this *Indxs) FindAll(category Category, Name string) (listofindex []Indxs) {
 	if Name != "" {
 		Databases.DB.Where("name = ?", Name).Find(&listofindex)
 	} else if category != (Category{}) {
 		Databases.DB.Where("categories = ?", category).Find(&listofindex)
 	}
+	return
 }
 
 func (this *Indxs) Del(Id uint) {
 	var indx Indxs
 	Databases.DB.First(&indx, "id = ?", Id)
 	Databases.DB.Delete(&indx)
+}
+
+func (this *Indxs) FindOne(Id uint) {
+	Databases.DB.First(&this, "id = ?", Id)
 }

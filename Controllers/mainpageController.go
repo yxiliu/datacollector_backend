@@ -7,27 +7,14 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func TestInsert(c *gin.Context) {
-	var testService Services.Test
-
-	err := c.ShouldBindJSON(&testService)
-	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
-	}
-
-	id, err := testService.Insert()
+func IndexPage(c *gin.Context) {
+	var prefaceinterface Services.Preface
+	err := c.ShouldBindJSON(&prefaceinterface)
+	listOfPreface := prefaceinterface.SearchAll()
 	if err != nil {
 		c.JSON(http.StatusOK, gin.H{
-			"code":    -1,
-			"message": "Insert() error!",
+			"data": listOfPreface,
 		})
 		return
 	}
-	c.JSON(http.StatusOK, gin.H{
-		"code":    1,
-		"message": "success",
-		"data":    id,
-	})
-
 }

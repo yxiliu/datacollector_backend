@@ -5,8 +5,7 @@ import (
 )
 
 type Test struct {
-	Id      int    `json:"id"`
-	Testcol string `json:"testcol"`
+	Id      uint    `json:"id"`
 }
 
 func (this *Test) Insert() (id int, err error) {

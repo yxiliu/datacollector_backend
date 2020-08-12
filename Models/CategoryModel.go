@@ -12,11 +12,16 @@ type Category struct {
 	subclass  uint // 0为最高级；
 }
 
-func (this *Category) FindAll() ([]*Category, error) {
-	var catelist []*Category
-	err := Databases.DB.Find(&catelist).Error
-	if err != nil {
-		return nil, err
+func (this *Category) FindAll() (catelist []Category, err error) {
+	if err = Databases.DB.Find(&catelist).Error; err != nil {
+		return
 	}
-	return catelist, nil
+	return
+}
+
+func (this *Category) FindOne(id uint) (err error) {
+	if err = Databases.DB.Find(&this, "id=?", id).Error; err != nil {
+		return
+	}
+	return
 }

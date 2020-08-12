@@ -18,6 +18,7 @@ func InitRouter() {
 	v1 := router.Group("v1")
 	{
 		v1.POST("/testinsert", Controllers.TestInsert)
+		v1.GET("/infopage", Controllers)
 	}
 
 	router.Run(":8080")
