@@ -4,18 +4,18 @@ import "collectbackend/databases"
 
 type IndxRecord struct {
 	ID       uint
-	Indxs    Indxs
-	maintype uint8 //0为Month；1为season；2为year
+	IndxsID  uint
+	Maintype uint8 //0为Month；1为season；2为year
 	Subtype  uint8 //0为average; 1为accumulation
 	Amount   float64
 	Year     uint
 	Month    uint
 }
 
-func (idr *IndxRecord) Insert(indx Indxs, maintype uint8, subtye uint8, amount float64, month uint, year uint) (id uint, err error) {
+func (idr *IndxRecord) Insert(indxId uint, maintype uint8, subtye uint8, amount float64, month uint, year uint) (id uint, err error) {
 	newrecord := IndxRecord{
-		Indxs:    indx,
-		maintype: maintype,
+		IndxsID:   indxId,
+		Maintype: maintype,
 		Subtype:  subtye,
 		Amount:   amount,
 		Month:    month,

@@ -15,7 +15,7 @@ type Indxs struct {
 	MonthIndx   uint8 //0为不选；1为单选均；2为单选累计；3为全选
 	SeasonIndx  uint8
 	YearIndx    bool // 年只有年均
-	idxUnit     string
+	IdxUnit     string
 	DeletedAt   *time.Time
 }
 
