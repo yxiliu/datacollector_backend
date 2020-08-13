@@ -1,12 +1,12 @@
-package Models
+package models
 
 import (
-	"collectbackend/Databases"
+	databases "collectbackend/databases"
 	"time"
 )
 
 type Indxs struct {
-	Id          uint
+	ID          uint
 	Name        string `gorm:"not null;unique"`
 	Maintainer  string
 	Memo        string `gorm:"size:255"`
@@ -24,9 +24,9 @@ type Indxs struct {
 //     return "test"
 // // }
 
-func (this *Indxs) Insert(name string, Maintainer string, idxUnit string, memo string, MonthIndx uint8, seasonIndx uint8, yearIndx bool, category string) (id uint, err error) {
-	result := Databases.DB.Create(&this)
-	id = this.Id
+func (idx *Indxs) Insert(name string, Maintainer string, idxUnit string, memo string, MonthIndx uint8, seasonIndx uint8, yearIndx bool, category Category) (id uint, err error) {
+	result := databases.DB.Create(&idx)
+	id = idx.ID
 	if result.Error != nil {
 		err = result.Error
 		return
@@ -34,21 +34,21 @@ func (this *Indxs) Insert(name string, Maintainer string, idxUnit string, memo s
 	return
 }
 
-func (this *Indxs) FindAll(category Category, Name string) (listofindex []Indxs) {
+func (idx *Indxs) FindAll(category Category, Name string) (listofindex []Indxs) {
 	if Name != "" {
-		Databases.DB.Where("name = ?", Name).Find(&listofindex)
+		databases.DB.Where("name = ?", Name).Find(&listofindex)
 	} else if category != (Category{}) {
-		Databases.DB.Where("categories = ?", category).Find(&listofindex)
+		databases.DB.Where("categories = ?", category).Find(&listofindex)
 	}
 	return
 }
 
-func (this *Indxs) Del(Id uint) {
+func (idx *Indxs) Del(ID uint) {
 	var indx Indxs
-	Databases.DB.First(&indx, "id = ?", Id)
-	Databases.DB.Delete(&indx)
+	databases.DB.First(&indx, "id = ?", ID)
+	databases.DB.Delete(&indx)
 }
 
-func (this *Indxs) FindOne(Id uint) {
-	Databases.DB.First(&this, "id = ?", Id)
+func (idx *Indxs) FindOne(ID uint) {
+	databases.DB.First(&idx, "id = ?", ID)
 }

@@ -1,26 +1,28 @@
-package Models
+package models
 
-import "collectbackend/Databases"
+import "collectbackend/databases"
 
 type IndxRecord struct {
-	Id       uint
+	ID       uint
 	Indxs    Indxs
 	maintype uint8 //0为Month；1为season；2为year
-	subtype  uint8 //0为average; 1为accumulation
-	amount   float64
-	year     uint
-	month    uint
+	Subtype  uint8 //0为average; 1为accumulation
+	Amount   float64
+	Year     uint
+	Month    uint
 }
 
-func (this *IndxRecord) Insert(indx Indxs, maintype uint8, subtye uint8, amount float64) (id uint, err error) {
+func (idr *IndxRecord) Insert(indx Indxs, maintype uint8, subtye uint8, amount float64, month uint, year uint) (id uint, err error) {
 	newrecord := IndxRecord{
 		Indxs:    indx,
 		maintype: maintype,
-		subtype:  subtye,
-		amount:   amount,
+		Subtype:  subtye,
+		Amount:   amount,
+		Month:    month,
+		Year:     year,
 	}
-	result := Databases.DB.Create(&newrecord)
-	id = this.Id
+	result := databases.DB.Create(&newrecord)
+	id = idr.ID
 	if result.Error != nil {
 		err = result.Error
 		return
@@ -28,14 +30,14 @@ func (this *IndxRecord) Insert(indx Indxs, maintype uint8, subtye uint8, amount 
 	return
 }
 
-func (this *IndxRecord) FindAll(indxs Indxs, year uint) (listofindex []IndxRecord) {
-	Databases.DB.Where("year = ? and Indxs = ?", year, indxs).Find(&listofindex)
+func (idr *IndxRecord) FindAll(indxs Indxs, year uint) (listofindex []IndxRecord) {
+	databases.DB.Where("year = ? and Indxs = ?", year, indxs).Find(&listofindex)
 	return listofindex
 }
 
-func (this *IndxRecord) UpdateCurrent(id uint, amount float64) {
+func (idr *IndxRecord) UpdateCurrent(id uint, amount float64) {
 	var indxr IndxRecord
-	Databases.DB.First(&indxr, "id=?", id)
-	indxr.amount = amount
-	Databases.DB.Save(&indxr)
+	databases.DB.First(&indxr, "id=?", id)
+	indxr.Amount = amount
+	databases.DB.Save(&indxr)
 }

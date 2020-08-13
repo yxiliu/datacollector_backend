@@ -1,26 +1,26 @@
-package Models
+package models
 
 import (
-	"collectbackend/Databases"
+	"collectbackend/databases"
 	"time"
 )
 
 type Category struct {
-	Id        uint
+	ID        uint
 	Name      string `gorm:"not null;unique"`
 	DeletedAt *time.Time
-	subclass  uint // 0为最高级；
+	Subclass  uint // 0为最高级；
 }
 
-func (this *Category) FindAll() (catelist []Category, err error) {
-	if err = Databases.DB.Find(&catelist).Error; err != nil {
+func (cateo *Category) FindAll() (catelist []Category, err error) {
+	if err = databases.DB.Find(&catelist).Error; err != nil {
 		return
 	}
 	return
 }
 
-func (this *Category) FindOne(id uint) (err error) {
-	if err = Databases.DB.Find(&this, "id=?", id).Error; err != nil {
+func (cateo *Category) FindOne(id uint) (err error) {
+	if err = databases.DB.Find(&cateo, "id=?", id).Error; err != nil {
 		return
 	}
 	return

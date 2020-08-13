@@ -1,10 +1,11 @@
 package main
 
 import (
-	"collectbackend/Router"
+	databases "collectbackend/Databases"
+	"collectbackend/router"
 )
 
 func main() {
-	defer Mysql.DB.Close()
-	Router.InitRouter()
+	defer databases.DB.Close()
+	router.InitRouter()
 }

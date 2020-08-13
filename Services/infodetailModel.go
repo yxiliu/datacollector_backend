@@ -1,19 +1,14 @@
-package Services
+package services
 
-import (
-	"collectbackend/Models"
-)
+import "collectbackend/models"
 
+// IndxInfo 给一个ID，给具体指标的属性
 type IndxInfo struct {
-	Id      int    `json:"id"`
-	Testcol string `json:"testcol"`
+	ID uint `json:"id"`
 }
 
-func (this *IndxInfo) GetInfoDetail() Models.Indxs {
-	var indxinfo Models.Indxs
-	indxinfo.
-		testModel.Id = this.Id
-	testModel.Testcol = this.Testcol
-	id, err = testModel.Insert()
+// GetEachInfo 找一个
+func (ifo *IndxInfo) GetEachInfo() (indxinfo models.Indxs) {
+	indxinfo.FindOne(ifo.ID)
 	return
 }

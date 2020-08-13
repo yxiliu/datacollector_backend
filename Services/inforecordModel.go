@@ -1,17 +1,18 @@
-package Services
+package services
 
 import (
-	"collectbackend/Models"
+	"collectbackend/models"
 )
 
-type IndxInfo struct {
-	Id int `json:"id"`
+type IndxRecordInfo struct {
+	ID   uint `json:"id"`
+	Year uint `json:"year"`
 }
 
-func (this *Test) GetInfo() (id int, err error) {
-	var testModel Models.Test
-	testModel.Id = this.Id
-	testModel.Testcol = this.Testcol
-	id, err = testModel.Insert()
+func (idxr *IndxRecordInfo) GetTable() (indxlist []models.IndxRecord) {
+	var record models.IndxRecord
+	var indx models.Indxs
+	indx.FindOne(idxr.ID)
+	indxlist = record.FindAll(indx, idxr.Year)
 	return
 }
