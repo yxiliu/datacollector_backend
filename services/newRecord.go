@@ -13,11 +13,10 @@ type NewRecord struct {
 	Amount   float64 `json:"amount"`
 }
 
-func (this *NewRecord) Insert() (id uint, err error) {
+func (nre *NewRecord) Insert() (id uint, err error) {
 	var record models.IndxRecord
-	var indx models.Indxs
-	indx.FindOne(this.Indxid)
-	id, err = record.Insert(indx, this.Maintype, this.Subtype, this.Amount, this.Month, this.Year)
+
+	id, err = record.Insert(nre.Indxid, nre.Maintype, nre.Subtype, nre.Amount, nre.Month, nre.Year)
 	if err != nil {
 		return
 	}
