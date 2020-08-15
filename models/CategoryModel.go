@@ -10,6 +10,7 @@ type Category struct {
 	Name      string `gorm:"not null;unique"`
 	DeletedAt *time.Time
 	Subclass  uint // 0为最高级；
+	Indxs   []Indx
 }
 
 func (cateo *Category) FindAll() (catelist []Category, err error) {

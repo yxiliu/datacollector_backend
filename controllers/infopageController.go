@@ -3,20 +3,24 @@ package controllers
 import (
 	"collectbackend/services"
 	"net/http"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 )
 
-func IndxRecord(c *gin.Context) {
-	var indxrecord services.IndxRecordInfo
+// IndxRecord 显示一个index的所有数据
+func IndxRecordTable(c *gin.Context) {
+	var id string = c.DefaultQuery("id","0")
+	idint, _ = strconv.Atoi(id)
+
 	c.ShouldBindJSON(&indxrecord)
 	indexlist := indxrecord.GetTable()
 	c.JSON(http.StatusOK, gin.H{
 		"data": indexlist,
 	})
-
 }
 
+// IndxInfo 显示一个index的内容信息
 func IndxInfo(c *gin.Context) {
 	var indxinfo services.IndxInfo
 	c.ShouldBindJSON(&indxinfo)
@@ -38,5 +42,4 @@ func NewRecord(c *gin.Context) {
 			"data": "ok",
 		})
 	}
-
 }

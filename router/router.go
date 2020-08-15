@@ -13,12 +13,18 @@ func InitRouter() {
 	router.Use(middlewares.Cors())
 	// 使用 session(cookie-based)
 	// router.Use(sessions.Sessions("myyyyysession", Sessions.Store))
-	v1 := router.Group("backend")
+	backend := router.Group("backend")
 	{
 		// v1.POST("/testinsert", controllers.IndexPage)
-		v1.GET("/indexpage", controllers.IndexPage)
-		v1.GET("/getallcate", controllers.GetAllCategory)
+		backend.GET("/indexpage", controllers.IndexPageGET)
+
+		backend.GET("/getallcate", controllers.GetAllCategory)
 		// v1.GET("/getdetail",)
+		backend.POST("/newIndex",controllers.NewIndx)
+
+		backend.GET("/getIndexTable", controllers.IndxRecordTable)
+
+		backend.GET("/getIndexInfo",controllers.IndxInfo)
 	}
 
 	router.Run(":8080")

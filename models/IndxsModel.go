@@ -5,12 +5,12 @@ import (
 	"time"
 )
 
-type Indxs struct {
+type Indx struct {
 	ID          uint
 	Name        string `gorm:"not null;unique"`
 	Maintainer  string
 	Memo        string `gorm:"size:255"`
-	Categories  Category
+	CategoryID  uint
 	IndxRecords []IndxRecord
 	MonthIndx   uint8 //0为不选；1为单选均；2为单选累计；3为全选
 	SeasonIndx  uint8
@@ -24,7 +24,7 @@ type Indxs struct {
 //     return "test"
 // // }
 
-func (idx *Indxs) Insert(name string, Maintainer string, idxUnit string, memo string, MonthIndx uint8, seasonIndx uint8, yearIndx bool, category Category) (id uint, err error) {
+func (idx *Indx) Insert(name string, Maintainer string, idxUnit string, memo string, MonthIndx uint8, seasonIndx uint8, yearIndx bool, category Category) (id uint, err error) {
 	result := databases.DB.Create(&idx)
 	id = idx.ID
 	if result.Error != nil {
@@ -34,21 +34,29 @@ func (idx *Indxs) Insert(name string, Maintainer string, idxUnit string, memo st
 	return
 }
 
-func (idx *Indxs) FindAll(category Category, Name string) (listofindex []Indxs) {
-	if Name != "" {
-		databases.DB.Where("name = ?", Name).Find(&listofindex)
-	} else if category != (Category{}) {
-		databases.DB.Where("categories = ?", category).Find(&listofindex)
-	}
+// FindAll 通过category找到所有的
+func FindAllByCate(category uint) (listofindex []Indx) {
+	databases.DB.Where("categories = ?", category).Find(&listofindex)
 	return
 }
 
-func (idx *Indxs) Del(ID uint) {
-	var indx Indxs
+// FindAll 通过Name找到所有的 搜索的时候用
+func FindAllByName(Name string) (listofindex []Indx) {
+	databases.DB.Where("name = ?", Name).Find(&listofindex)
+	return
+}
+// FindAll 没有任何条件的
+func FindAllIndx() (listofindex []Indx)  {
+	databases.DB.Find(&listofindex)
+	return
+}
+
+func (idx *Indx) Del(ID uint) {
+	var indx Indx
 	databases.DB.First(&indx, "id = ?", ID)
 	databases.DB.Delete(&indx)
 }
 
-func (idx *Indxs) FindOne(ID uint) {
+func (idx *Indx) FindOne(ID uint) {
 	databases.DB.First(&idx, "id = ?", ID)
 }
