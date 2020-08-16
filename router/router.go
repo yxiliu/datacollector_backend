@@ -7,6 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// InitRouter 路由初始化
 func InitRouter() {
 	router := gin.Default()
 	// 要在路由组之前全局使用「跨域中间件」, 否则OPTIONS会返回404
@@ -20,11 +21,12 @@ func InitRouter() {
 
 		backend.GET("/getallcate", controllers.GetAllCategory)
 		// v1.GET("/getdetail",)
-		backend.POST("/newIndex",controllers.NewIndx)
+		backend.POST("/newIndex", controllers.NewIndx)
 
 		backend.GET("/getIndexTable", controllers.IndxRecordTable)
 
-		backend.GET("/getIndexInfo",controllers.IndxInfo)
+		backend.GET("/getIndexInfo", controllers.IndxInfo)
+		backend.POST("/newrecord", controllers.NewRecord)
 	}
 
 	router.Run(":8080")

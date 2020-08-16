@@ -15,11 +15,10 @@ type NewIndex struct {
 	Maintainer string `json:"maintainer"`
 }
 
-func (this *NewIndex) Insert() (id uint, err error) {
-	var cate models.Category
-	cate.FindOne(this.Category)
-	var indx models.Indxs
-	id, err = indx.Insert(this.Name, this.Maintainer, this.Unit, this.Memo, this.MonthC, this.SeasonC, this.Yearc, cate)
+// Insert 添加一个新的Index
+func (ths *NewIndex) Insert() (id uint, err error) {
+	var indx models.Indx
+	id, err = indx.Insert(ths.Name, ths.Maintainer, ths.Unit, ths.Memo, ths.MonthC, ths.SeasonC, ths.Yearc, ths.Category)
 	if err != nil {
 		return
 	}

@@ -19,12 +19,16 @@ type Indx struct {
 	DeletedAt   *time.Time
 }
 
-// 设置Test的表名为`test`
-// func (Test) TableName() string {
-//     return "test"
-// // }
-
-func (idx *Indx) Insert(name string, Maintainer string, idxUnit string, memo string, MonthIndx uint8, seasonIndx uint8, yearIndx bool, category Category) (id uint, err error) {
+// Insert 添加一个
+func (idx *Indx) Insert(name string, Maintainer string, idxUnit string, memo string, MonthIndx uint8, seasonIndx uint8, yearIndx bool, category uint) (id uint, err error) {
+	idx.Name = name
+	idx.Maintainer = Maintainer
+	idx.IdxUnit = idxUnit
+	idx.Memo = memo
+	idx.MonthIndx = MonthIndx
+	idx.SeasonIndx = seasonIndx
+	idx.YearIndx = yearIndx
+	idx.CategoryID = category
 	result := databases.DB.Create(&idx)
 	id = idx.ID
 	if result.Error != nil {
@@ -34,19 +38,20 @@ func (idx *Indx) Insert(name string, Maintainer string, idxUnit string, memo str
 	return
 }
 
-// FindAll 通过category找到所有的
+// FindAllByCate 通过category找到所有的
 func FindAllByCate(category uint) (listofindex []Indx) {
 	databases.DB.Where("categories = ?", category).Find(&listofindex)
 	return
 }
 
-// FindAll 通过Name找到所有的 搜索的时候用
+// FindAllByName 通过Name找到所有的 搜索的时候用
 func FindAllByName(Name string) (listofindex []Indx) {
 	databases.DB.Where("name = ?", Name).Find(&listofindex)
 	return
 }
-// FindAll 没有任何条件的
-func FindAllIndx() (listofindex []Indx)  {
+
+// FindAllIndx 没有任何条件的
+func FindAllIndx() (listofindex []Indx) {
 	databases.DB.Find(&listofindex)
 	return
 }

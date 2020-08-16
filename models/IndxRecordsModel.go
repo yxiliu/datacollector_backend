@@ -14,7 +14,7 @@ type IndxRecord struct {
 
 func (idr *IndxRecord) Insert(indxId uint, maintype uint8, subtye uint8, amount float64, month uint, year uint) (id uint, err error) {
 	newrecord := IndxRecord{
-		IndxsID:   indxId,
+		IndxsID:  indxId,
 		Maintype: maintype,
 		Subtype:  subtye,
 		Amount:   amount,
@@ -30,8 +30,8 @@ func (idr *IndxRecord) Insert(indxId uint, maintype uint8, subtye uint8, amount 
 	return
 }
 
-func (idr *IndxRecord) FindAll(indxs Indxs, year uint) (listofindex []IndxRecord) {
-	databases.DB.Where("year = ? and Indxs = ?", year, indxs).Find(&listofindex)
+func FindAllRecordByIndexAndYear(indxs uint, year uint) (listofindex []IndxRecord) {
+	databases.DB.Where("year = ? and IndxsID = ?", year, indxs).Find(&listofindex)
 	return listofindex
 }
 
