@@ -27,6 +27,7 @@ func InitRouter() {
 
 		backend.GET("/getIndexInfo", controllers.IndxInfo)
 		backend.POST("/newrecord", controllers.NewRecord)
+		// backend.GET("/test", controllers.NewCate)
 	}
 
 	router.Run(":8080")

@@ -12,13 +12,10 @@ import (
 // IndexPageGET GET请求 主页的所有index
 func IndexPageGET(c *gin.Context) {
 	var cateID string = c.DefaultQuery("cateid", "0")
-	var searchName string = c.DefaultQuery("search", "")
 	cateIDInt, _ := strconv.Atoi(cateID)
 	var cateIDUInt uint = uint(cateIDInt)
 	var indexlist []models.Indx
-	if searchName != "" {
-		indexlist = models.FindAllByName(searchName)
-	} else if cateID != "0" {
+	if cateID != "0" {
 		indexlist = models.FindAllByCate(cateIDUInt)
 	} else {
 		indexlist = models.FindAllIndx()
@@ -28,6 +25,13 @@ func IndexPageGET(c *gin.Context) {
 	})
 }
 
+func IndexSearch(c *gin.Context) {
+	var searchName string = c.DefaultQuery("search", "")
+	indexlist := models.FindAllByName(searchName)
+	c.JSON(http.StatusOK, gin.H{
+		"data": indexlist,
+	})
+}
 
 // NewIndx 一个新的index
 func NewIndx(c *gin.Context) {
@@ -41,14 +45,13 @@ func NewIndx(c *gin.Context) {
 	}
 }
 
-
 // GetAllCategory 拿到所有的分类
 func GetAllCategory(c *gin.Context) {
-	var cat models.Category
-	catlist, err := cat.FindAll()
+	catlist, err := models.FindAllCategory()
 	if err != nil {
-		c.JSON(http.StatusOK, gin.H{"code": 200, "data": catlist})
+		c.JSON(http.StatusOK, gin.H{"code": 300, "data": "", "err": err})
 	} else {
-		c.JSON(http.StatusOK, gin.H{"code": 300, "data": "", "err": err.Error})
+		c.JSON(http.StatusOK, gin.H{"code": 200, "data": catlist})
+
 	}
 }

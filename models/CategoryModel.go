@@ -10,10 +10,10 @@ type Category struct {
 	Name      string `gorm:"not null;unique"`
 	DeletedAt *time.Time
 	Subclass  uint // 0为最高级；
-	Indxs   []Indx
+	Indxs     []Indx
 }
 
-func (cateo *Category) FindAll() (catelist []Category, err error) {
+func FindAllCategory() (catelist []Category, err error) {
 	if err = databases.DB.Find(&catelist).Error; err != nil {
 		return
 	}
@@ -25,4 +25,12 @@ func (cateo *Category) FindOne(id uint) (err error) {
 		return
 	}
 	return
+}
+
+func (cateo *Category) Createnewone() uint {
+	cateo.Name = "test"
+	cateo.Subclass = 1
+
+	databases.DB.Create(&cateo)
+	return cateo.ID
 }
