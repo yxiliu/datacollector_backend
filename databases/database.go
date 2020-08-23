@@ -12,7 +12,8 @@ var DB *gorm.DB
 
 func init() {
 	var err error
-	DB, err = gorm.Open("mysql", "dqb:123456Hb@tcp(10.18.154.202:3306)/argsdb?charset=utf8&parseTime=True&loc=Local")
+	//DB, err = gorm.Open("mysql", "dqb:123456Hb@tcp(10.18.154.202:3306)/argsdb?charset=utf8&parseTime=True&loc=Local")
+	DB, err = gorm.Open("mysql", "jingjing1:jingjingbangbang@tcp(123.207.68.151:3306)/argsdb?charset=utf8&parseTime=True&loc=Local")
 	if err != nil {
 		fmt.Printf("mysql connect error %v", err)
 	}

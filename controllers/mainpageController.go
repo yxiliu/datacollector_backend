@@ -25,6 +25,15 @@ func IndexPageGET(c *gin.Context) {
 	})
 }
 
+func IndexPageSearch(c *gin.Context)  {
+	var searchname string = c.PostForm("search")
+	indexlist := models.FindAllByName(searchname)
+	c.JSON(http.StatusOK, gin.H{
+		"data":indexlist,
+	})
+
+}
+
 func IndexSearch(c *gin.Context) {
 	var searchName string = c.DefaultQuery("search", "")
 	indexlist := models.FindAllByName(searchName)

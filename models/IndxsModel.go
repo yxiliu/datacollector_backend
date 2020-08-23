@@ -17,6 +17,7 @@ type Indx struct {
 	YearIndx    bool // 年只有年均
 	IdxUnit     string
 	DeletedAt   *time.Time
+	LastestAmountID uint
 }
 
 // Insert 添加一个
@@ -40,7 +41,7 @@ func (idx *Indx) Insert(name string, Maintainer string, idxUnit string, memo str
 
 // FindAllByCate 通过category找到所有的
 func FindAllByCate(category uint) (listofindex []Indx) {
-	databases.DB.Where("categories = ?", category).Find(&listofindex)
+	databases.DB.Where("category_id = ?", category).Find(&listofindex)
 	return
 }
 

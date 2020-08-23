@@ -18,7 +18,7 @@ func InitRouter() {
 	{
 		// v1.POST("/testinsert", controllers.IndexPage)
 		backend.GET("/indexpage", controllers.IndexPageGET)
-
+		backend.POST("/searchindex", controllers.IndexPageSearch)
 		backend.GET("/getallcate", controllers.GetAllCategory)
 		// v1.GET("/getdetail",)
 		backend.POST("/newIndex", controllers.NewIndx)
