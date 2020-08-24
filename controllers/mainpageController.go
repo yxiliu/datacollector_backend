@@ -26,21 +26,14 @@ func IndexPageGET(c *gin.Context) {
 }
 
 func IndexPageSearch(c *gin.Context)  {
-	var searchname string = c.PostForm("search")
+	var searchname string = c.DefaultPostForm("search","none")
+	println(searchname)
 	indexlist := models.FindAllByName(searchname)
 	c.JSON(http.StatusOK, gin.H{
 		"data":indexlist,
 	})
-
 }
 
-func IndexSearch(c *gin.Context) {
-	var searchName string = c.DefaultQuery("search", "")
-	indexlist := models.FindAllByName(searchName)
-	c.JSON(http.StatusOK, gin.H{
-		"data": indexlist,
-	})
-}
 
 // NewIndx 一个新的index
 func NewIndx(c *gin.Context) {
