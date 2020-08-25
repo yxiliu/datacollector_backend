@@ -6,18 +6,19 @@ import (
 )
 
 type Indx struct {
-	ID          uint
-	Name        string `gorm:"not null;unique"`
-	Maintainer  string
-	Memo        string `gorm:"size:255"`
-	CategoryID  uint
-	IndxRecords []IndxRecord
-	MonthIndx   uint8 //0为不选；1为单选均；2为单选累计；3为全选
-	SeasonIndx  uint8
-	YearIndx    bool // 年只有年均
-	IdxUnit     string
-	DeletedAt   *time.Time
+	ID              uint
+	Name            string `gorm:"not null;unique"`
+	Maintainer      string
+	Memo            string `gorm:"size:255"`
+	CategoryID      uint
+	IndxRecords     []IndxRecord
+	MonthIndx       uint8 //0为不选；1为单选均；2为单选累计；3为全选
+	SeasonIndx      uint8
+	YearIndx        bool // 年只有年均
+	IdxUnit         string
+	DeletedAt       *time.Time
 	LastestAmountID uint
+	LatestUpdatedAt *time.Time
 }
 
 // Insert 添加一个
