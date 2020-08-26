@@ -31,7 +31,7 @@ func (idr *IndxRecord) Insert(indxId uint, maintype uint8, subtye uint8, amount 
 }
 
 func FindAllRecordByIndexAndYear(indxs uint, year uint) (listofindex []IndxRecord) {
-	databases.DB.Where("year = ? and IndxsID = ?", year, indxs).Find(&listofindex)
+	databases.DB.Where("year = ? and indxs_id = ?", year, indxs).Find(&listofindex)
 	return listofindex
 }
 
